@@ -24,7 +24,7 @@ return require('packer').startup(function()
         use {"hrsh7th/cmp-nvim-lua", after = "nvim-cmp"}
         use {"hrsh7th/cmp-path", after = "nvim-cmp"}
         use {"hrsh7th/cmp-buffer", after = "nvim-cmp"}
-        -- use {"hrsh7th/cmp-cmdline", after = "nvim-cmp"}
+        use {"hrsh7th/cmp-emoji", after = "nvim-cmp"}
         use {"quangnguyen30192/cmp-nvim-ultisnips", after = {'nvim-cmp', 'ultisnips'}}
     
         -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
@@ -67,9 +67,8 @@ return require('packer').startup(function()
         -- Snippet engine and snippet template
         use({"SirVer/ultisnips", event = 'InsertEnter'})
         use({ "honza/vim-snippets", after = 'ultisnips'})
+
         -- Automatic insertion and deletion of a pair of characters
-        -- use({"Raimondi/delimitMate", event = "InsertEnter"})
-        
         use({ "windwp/nvim-autopairs", config = [[require('config.nvim-autopairs')]] })
 
         -- The missing auto-completion for cmdline!
@@ -84,17 +83,27 @@ return require('packer').startup(function()
 
         -- Buffer tabs
         use {
-            'akinsho/bufferline.nvim',
-            requires = 'kyazdani42/nvim-web-devicons', 
-            config = [[require('config.bufferline')]] 
+          'akinsho/bufferline.nvim',
+          requires = 'kyazdani42/nvim-web-devicons', 
+          config = [[require('config.bufferline')]] 
         }
-        
+
+        use { 
+          's1n7ax/nvim-terminal',
+          config = [[require('config.nvim-terminal')]]
+        }
+
+        use { 
+          'norcalli/nvim-colorizer.lua', 
+          config = [[require('config.nvim-colorizer')]]
+        }
+
         -- fuzzy search
         use {
             'nvim-telescope/telescope.nvim', cmd = 'Telescope',
             requires = { {'nvim-lua/plenary.nvim'} }
         }
-            -- file explorer
+        -- file explorer
         use {
             'kyazdani42/nvim-tree.lua',
             requires = { 'kyazdani42/nvim-web-devicons' },
@@ -102,7 +111,7 @@ return require('packer').startup(function()
         }
         -- search emoji and other symbols
         use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
-       
+
         -- showing keybindings
         use {"folke/which-key.nvim",
             event = "VimEnter",
@@ -110,11 +119,13 @@ return require('packer').startup(function()
             vim.defer_fn(function() require('config.which-key') end, 2000)
             end
         }
-       
-       -- File search, tag search, and more
-       use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
 
-       -- A list of colorscheme plugin you may want to try. Find what suits you.
-       use({"rebelot/kanagawa.nvim", opt = true})
+        -- File search, tag search, and more
+        use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
 
+        -- Kitty conf highlighting
+        use { 'fladson/vim-kitty' }
+
+        -- colorscheme plugin
+        use { "rebelot/kanagawa.nvim", opt = true }
 end)

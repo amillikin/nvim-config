@@ -115,6 +115,8 @@ lspconfig.cssls.setup({
     capabilities = capabilities,
 })
 
+lspconfig.cssmodules_ls.setup{}
+
 -- set up vim-language-server
 lspconfig.vimls.setup({
   on_attach = custom_attach,
