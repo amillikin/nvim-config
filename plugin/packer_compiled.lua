@@ -145,12 +145,6 @@ _G.packer_plugins = {
     path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
-  ["committia.vim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/committia.vim",
-    url = "https://github.com/rhysd/committia.vim"
-  },
   ["indent-blankline.nvim"] = {
     config = { "require('config.indent-blankline')" },
     loaded = false,
@@ -187,16 +181,8 @@ _G.packer_plugins = {
     path = "/home/loofy/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
-  ["nvim-bqf"] = {
-    config = { "require('config.bqf')" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/nvim-bqf",
-    url = "https://github.com/kevinhwang91/nvim-bqf"
-  },
   ["nvim-cmp"] = {
-    after = { "cmp-path", "cmp-nvim-lsp", "cmp-buffer", "cmp-emoji", "cmp-nvim-lua", "cmp-nvim-ultisnips" },
+    after = { "cmp-emoji", "cmp-nvim-lua", "cmp-nvim-ultisnips", "cmp-path", "cmp-nvim-lsp", "cmp-buffer" },
     config = { "require('config.nvim-cmp')" },
     load_after = {
       ["lspkind-nvim"] = true
@@ -221,6 +207,12 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-neoclip.lua"] = {
+    config = { "require('config.nvim-neoclip')" },
+    loaded = true,
+    path = "/home/loofy/.local/share/nvim/site/pack/packer/start/nvim-neoclip.lua",
+    url = "https://github.com/AckslD/nvim-neoclip.lua"
   },
   ["nvim-terminal"] = {
     config = { "require('config.nvim-terminal')" },
@@ -277,55 +269,33 @@ _G.packer_plugins = {
     path = "/home/loofy/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["telescope-symbols.nvim"] = {
-    load_after = {
-      ["telescope.nvim"] = true
-    },
+  ["sqlite.lua"] = {
     loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/sqlite.lua",
+    url = "https://github.com/tami5/sqlite.lua"
+  },
+  ["telescope-symbols.nvim"] = {
+    load_after = {},
+    loaded = true,
     needs_bufread = false,
     path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/telescope-symbols.nvim",
     url = "https://github.com/nvim-telescope/telescope-symbols.nvim"
   },
   ["telescope.nvim"] = {
     after = { "telescope-symbols.nvim" },
-    commands = { "Telescope" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/telescope.nvim",
-    url = "https://github.com/nvim-telescope/telescope.nvim"
+    loaded = true,
+    only_config = true
   },
   ultisnips = {
-    after = { "vim-snippets", "cmp-nvim-ultisnips" },
+    after = { "cmp-nvim-ultisnips", "vim-snippets" },
     after_files = { "/home/loofy/.local/share/nvim/site/pack/packer/opt/ultisnips/after/plugin/UltiSnips_after.vim" },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
     path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/ultisnips",
     url = "https://github.com/SirVer/ultisnips"
-  },
-  ["vim-conflicted"] = {
-    commands = { "Conflicted" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/vim-conflicted",
-    url = "https://github.com/christoomey/vim-conflicted"
-  },
-  ["vim-flog"] = {
-    commands = { "Flog" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/vim-flog",
-    url = "https://github.com/rbong/vim-flog"
-  },
-  ["vim-fugitive"] = {
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/loofy/.local/share/nvim/site/pack/packer/opt/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-kitty"] = {
     loaded = true,
@@ -372,10 +342,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Setup for: committia.vim
-time([[Setup for committia.vim]], true)
-vim.cmd('packadd committia.vim')
-time([[Setup for committia.vim]], false)
+local module_lazy_loads = {
+  ["^sqlite"] = "sqlite.lua"
+}
+local lazy_load_called = {['packer.load'] = true}
+local function lazy_load_module(module_name)
+  local to_load = {}
+  if lazy_load_called[module_name] then return nil end
+  lazy_load_called[module_name] = true
+  for module_pat, plugin_name in pairs(module_lazy_loads) do
+    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
+      to_load[#to_load + 1] = plugin_name
+    end
+  end
+
+  if #to_load > 0 then
+    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
+    local loaded_mod = package.loaded[module_name]
+    if loaded_mod then
+      return function(modname) return loaded_mod end
+    end
+  end
+end
+
+if not vim.g.packer_custom_loader_enabled then
+  table.insert(package.loaders, 1, lazy_load_module)
+  vim.g.packer_custom_loader_enabled = true
+end
+
 -- Setup for: wilder.nvim
 time([[Setup for wilder.nvim]], true)
 vim.cmd('packadd wilder.nvim')
@@ -384,29 +378,38 @@ time([[Setup for wilder.nvim]], false)
 time([[Config for nvim-tree.lua]], true)
 require('config.nvim-tree')
 time([[Config for nvim-tree.lua]], false)
--- Config for: nvim-terminal
-time([[Config for nvim-terminal]], true)
-require('config.nvim-terminal')
-time([[Config for nvim-terminal]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-require('config.nvim-autopairs')
-time([[Config for nvim-autopairs]], false)
 -- Config for: bufferline.nvim
 time([[Config for bufferline.nvim]], true)
 require('config.bufferline')
 time([[Config for bufferline.nvim]], false)
+-- Config for: nvim-neoclip.lua
+time([[Config for nvim-neoclip.lua]], true)
+require('config.nvim-neoclip')
+time([[Config for nvim-neoclip.lua]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('config.telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-terminal
+time([[Config for nvim-terminal]], true)
+require('config.nvim-terminal')
+time([[Config for nvim-terminal]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 require('config.nvim-colorizer')
 time([[Config for nvim-colorizer.lua]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+require('config.nvim-autopairs')
+time([[Config for nvim-autopairs]], false)
+-- Load plugins in order defined by `after`
+time([[Sequenced loading]], true)
+vim.cmd [[ packadd telescope-symbols.nvim ]]
+time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Conflicted lua require("packer.load")({'vim-conflicted'}, { cmd = "Conflicted", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Leaderf lua require("packer.load")({'LeaderF'}, { cmd = "Leaderf", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Flog lua require("packer.load")({'vim-flog'}, { cmd = "Flog", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
@@ -417,11 +420,9 @@ vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-python-pep8
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'indent-blankline.nvim', 'which-key.nvim', 'lualine.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufEnter * ++once lua require("packer.load")({'lspkind-nvim', 'nvim-treesitter'}, { event = "BufEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au User InGitRepo ++once lua require("packer.load")({'vim-fugitive'}, { event = "User InGitRepo" }, _G.packer_plugins)]]
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'indent-blankline.nvim', 'lualine.nvim', 'which-key.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'ultisnips'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au FileType qf ++once lua require("packer.load")({'nvim-bqf'}, { event = "FileType qf" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
@@ -429,5 +430,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end
