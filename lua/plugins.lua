@@ -108,10 +108,19 @@ return require('packer').startup(function()
       vim.defer_fn(function() require('config.which-key') end, 2000)
       end
   }
+  -- Telescope searchable cheatsheet
+  use { 
+    'sudormrfbin/cheatsheet.nvim',
+    requires = {
+    {'nvim-telescope/telescope.nvim'},
+    {'nvim-lua/popup.nvim'},
+    {'nvim-lua/plenary.nvim'},
+    }
+  }
   -- File search, tag search, and more
   use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
   -- Kitty conf highlighting
   use { 'fladson/vim-kitty' }
-  -- colorscheme plugin
+  -- colorscheme plugins
   use { "rebelot/kanagawa.nvim", opt = true }
 end)

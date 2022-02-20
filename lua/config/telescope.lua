@@ -37,8 +37,11 @@ require('telescope').setup{
 
 require('telescope').load_extension('neoclip')
 
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>Telescope<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tg", "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>th", "<cmd>Telescope help_tags<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tc", "<cmd>Telescope neoclip<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>Telescope keymaps<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ts", "<cmd>Telescope colorscheme<CR>", { noremap = true, silent = true })

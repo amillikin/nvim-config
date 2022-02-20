@@ -125,7 +125,7 @@ set winblend=5  " pseudo transparency for floating window
 " Insert mode key word completion setting
 set complete+=kspell complete-=w complete-=b complete-=u complete-=t
 
-set spelllang=en,cjk  " Spell languages
+set spelllang=en " Spell languages
 set spellsuggest+=9  " show 9 spell suggestions at most
 
 " Align indent to next multiple value of shiftwidth. For its meaning,
@@ -149,6 +149,9 @@ if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m
 endif
+
+" Switch default shell
+set shell=/usr/bin/zsh
 
 " Enable true color support. Do not set this option if your terminal does not
 " support true colors! For a comprehensive list of terminals supporting true
