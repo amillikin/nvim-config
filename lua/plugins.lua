@@ -63,11 +63,11 @@ return require('packer').startup(function()
     config = [[require('config.statusline')]]
   }
   -- Buffer tabs
-  use {
-    'akinsho/bufferline.nvim',
-    requires = 'kyazdani42/nvim-web-devicons', 
-    config = [[require('config.bufferline')]] 
-  }
+  -- use {
+  --   'akinsho/bufferline.nvim',
+  --   requires = 'kyazdani42/nvim-web-devicons', 
+  --   config = [[require('config.bufferline')]] 
+  -- }
   -- more convenient terminal handling
   use { 
     's1n7ax/nvim-terminal',
@@ -95,6 +95,17 @@ return require('packer').startup(function()
   }
   -- search emoji and other symbols
   use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
+  -- Telescope searchable cheatsheet
+  use { 
+    'sudormrfbin/cheatsheet.nvim',
+    requires = {
+    {'nvim-telescope/telescope.nvim'},
+    {'nvim-lua/popup.nvim'},
+    {'nvim-lua/plenary.nvim'},
+    }
+  }
+  -- Repeat tTfF instead of ',' and ';'
+  use { 'rhysd/clever-f.vim'}
   -- file explorer
   use {
       'kyazdani42/nvim-tree.lua',
@@ -108,19 +119,12 @@ return require('packer').startup(function()
       vim.defer_fn(function() require('config.which-key') end, 2000)
       end
   }
-  -- Telescope searchable cheatsheet
-  use { 
-    'sudormrfbin/cheatsheet.nvim',
-    requires = {
-    {'nvim-telescope/telescope.nvim'},
-    {'nvim-lua/popup.nvim'},
-    {'nvim-lua/plenary.nvim'},
-    }
-  }
   -- File search, tag search, and more
   use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
   -- Kitty conf highlighting
   use { 'fladson/vim-kitty' }
   -- colorscheme plugins
   use { "rebelot/kanagawa.nvim", opt = true }
+  -- underline word under cursor for whole buffer
+  use { "yamatsum/nvim-cursorline" }
 end)

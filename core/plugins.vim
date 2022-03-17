@@ -15,7 +15,7 @@ let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 " Configuration for custom snippets directory, see
-let g:UltiSnipsSnippetDirectories=['UltiSnips']
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'custom_snippets']
 """""""""""""""""""""""""""""LeaderF settings"""""""""""""""""""""
 " Do not use cache file
 let g:Lf_UseCache = 0
