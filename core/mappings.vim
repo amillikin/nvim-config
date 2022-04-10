@@ -5,6 +5,3 @@ nnoremap <Space><Space> a<Space><ESC>h
 " see https://stackoverflow.com/a/16136133/6064933
 nnoremap <expr> <Space>o printf('m`%so<ESC>``', v:count1)
 nnoremap <expr> <Space>O printf('m`%sO<ESC>``', v:count1)
-
-" Use Esc to quit builtin terminal
-tnoremap <ESC> <C-\><C-n>

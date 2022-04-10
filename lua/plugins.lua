@@ -37,9 +37,9 @@ return require('packer').startup(function()
   use({ "jeetsukumaran/vim-pythonsense", ft = { "python" } })
   -- Lines to show indentation level
   use({
-      "lukas-reineke/indent-blankline.nvim",
-      event = 'VimEnter',
-      config = [[require('config.indent-blankline')]]
+    "lukas-reineke/indent-blankline.nvim",
+    event = 'VimEnter',
+    config = [[require('config.indent-blankline')]]
   })
   -- Git command inside vim
   -- use({ "tpope/vim-fugitive", event = "User InGitRepo" })
@@ -108,16 +108,16 @@ return require('packer').startup(function()
   use { 'rhysd/clever-f.vim'}
   -- file explorer
   use {
-      'kyazdani42/nvim-tree.lua',
-      requires = { 'kyazdani42/nvim-web-devicons' },
-      config = [[require('config.nvim-tree')]]
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = [[require('config.nvim-tree')]]
   }
   -- showing keybindings
   use {"folke/which-key.nvim",
-      event = "VimEnter",
-      config = function()
-      vim.defer_fn(function() require('config.which-key') end, 2000)
-      end
+    event = "VimEnter",
+    config = function()
+    vim.defer_fn(function() require('config.which-key') end, 2000)
+    end
   }
   -- File search, tag search, and more
   use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
@@ -127,4 +127,10 @@ return require('packer').startup(function()
   use { "rebelot/kanagawa.nvim", opt = true }
   -- underline word under cursor for whole buffer
   use { "yamatsum/nvim-cursorline" }
+  -- zk note companion
+  use {
+    'mickael-menu/zk-nvim',
+    requires = { 'nvim-telescope/telescope.nvim' },
+    config = [[require('config.zk')]]
+  }
 end)
