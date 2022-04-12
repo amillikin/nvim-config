@@ -104,8 +104,8 @@ return require('packer').startup(function()
     {'nvim-lua/plenary.nvim'},
     }
   }
-  -- Repeat tTfF instead of ',' and ';'
-  use { 'rhysd/clever-f.vim'}
+  -- Repeat tTfF instead of ',' and ';' 22-04-11 removed, part of lightspeed
+  -- use { 'rhysd/clever-f.vim'}
   -- file explorer
   use {
     'kyazdani42/nvim-tree.lua',
@@ -133,4 +133,11 @@ return require('packer').startup(function()
     requires = { 'nvim-telescope/telescope.nvim' },
     config = [[require('config.zk')]]
   }
+  -- Faster movement
+  use {
+    'ggandor/lightspeed.nvim',
+    requires = { 'tpope/vim-repeat' },
+    --config = [[require('config.lightspeed')]]
+  }
+
 end)
