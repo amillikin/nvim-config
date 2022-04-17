@@ -127,12 +127,6 @@ return require('packer').startup(function()
   use { "rebelot/kanagawa.nvim", opt = true }
   -- underline word under cursor for whole buffer
   use { "yamatsum/nvim-cursorline" }
-  -- zk note companion
-  use {
-    'mickael-menu/zk-nvim',
-    requires = { 'nvim-telescope/telescope.nvim' },
-    config = [[require('config.zk')]]
-  }
   -- Faster movement
   use {
     'ggandor/lightspeed.nvim',
