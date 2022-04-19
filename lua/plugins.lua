@@ -133,5 +133,7 @@ return require('packer').startup(function()
     requires = { 'tpope/vim-repeat' },
     --config = [[require('config.lightspeed')]]
   }
+  -- Markdown Renderer
+  use { "ellisonleao/glow.nvim", branch = 'main' }
 
 end)
