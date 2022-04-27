@@ -135,5 +135,10 @@ return require('packer').startup(function()
   }
   -- Markdown Renderer
   use { "ellisonleao/glow.nvim", branch = 'main' }
+  -- User neovim in Firefox
+  use {
+    'glacambre/firenvim',
+    run = function() vim.fn['firenvim#install'](0) end 
+  }
 
 end)

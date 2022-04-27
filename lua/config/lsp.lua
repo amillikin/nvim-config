@@ -1,6 +1,6 @@
 local api = vim.api
 local lsp = vim.lsp
-
+local utils = require("utils")
 local custom_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap = true, silent = true }
@@ -76,7 +76,7 @@ lspconfig.pylsp.setup({
         pycodestyle = { enabled = false },
         jedi_completion = { fuzzy = true },
         pyls_isort = { enabled = true },
-        pylsp_mypy = { enabled = true },
+        -- pylsp_mypy = { enabled = false }, no longer in AUR
       },
     },
   },
@@ -142,6 +142,30 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_binary_path ~= "" then
     capabilities = capabilities,
   })
 end
+
+if utils.executable('clangd') then
+  lspconfig.clangd.setup({
+    on_attach = custom_attach,
+    capabilities = capabilities,
+    filetypes = { "c", "cpp", "cc" },
+    flags = {
+      debounce_text_changes = 500,
+    },
+  })
+else
+  vim.notify("clangd not found!", 'warn', {title = 'Nvim-config'})
+end
+
+lspconfig.ccls.setup({
+    on_attach = custom_attach,
+    capabilities = capabilities,
+    filetypes = { "c", "cpp", "cc" },
+})
+
+lspconfig.cmake.setup({
+    on_attach = custom_attach,
+    capabilities = capabilities,
+})
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
