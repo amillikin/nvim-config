@@ -154,6 +154,12 @@ _G.packer_plugins = {
     path = "/home/loofy/.local/share/nvim/site/pack/packer/start/glow.nvim",
     url = "https://github.com/ellisonleao/glow.nvim"
   },
+  ["impatient.nvim"] = {
+    config = { "require('impatient')" },
+    loaded = true,
+    path = "/home/loofy/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
   ["indent-blankline.nvim"] = {
     config = { "require('config.indent-blankline')" },
     loaded = false,
@@ -196,7 +202,7 @@ _G.packer_plugins = {
     url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
-    after = { "cmp-nvim-lua", "cmp-nvim-ultisnips", "cmp-path", "cmp-nvim-lsp", "cmp-buffer", "cmp-emoji" },
+    after = { "cmp-buffer", "cmp-path", "cmp-emoji", "cmp-nvim-ultisnips", "cmp-nvim-lsp", "cmp-nvim-lua" },
     config = { "require('config.nvim-cmp')" },
     load_after = {
       ["lspkind-nvim"] = true
@@ -246,7 +252,7 @@ _G.packer_plugins = {
     url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    after = { "nvim-ts-rainbow", "nvim-ts-autotag" },
+    after = { "nvim-ts-autotag", "nvim-ts-rainbow" },
     config = { "require('config.treesitter')" },
     loaded = false,
     needs_bufread = false,
@@ -313,7 +319,7 @@ _G.packer_plugins = {
     only_config = true
   },
   ultisnips = {
-    after = { "cmp-nvim-ultisnips", "vim-snippets" },
+    after = { "vim-snippets", "cmp-nvim-ultisnips" },
     after_files = { "/home/loofy/.local/share/nvim/site/pack/packer/opt/ultisnips/after/plugin/UltiSnips_after.vim" },
     loaded = false,
     needs_bufread = true,
@@ -407,26 +413,30 @@ time([[Setup for wilder.nvim]], false)
 time([[Config for nvim-colorizer.lua]], true)
 require('config.nvim-colorizer')
 time([[Config for nvim-colorizer.lua]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('config.telescope')
-time([[Config for telescope.nvim]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-require('config.nvim-autopairs')
-time([[Config for nvim-autopairs]], false)
 -- Config for: nvim-terminal
 time([[Config for nvim-terminal]], true)
 require('config.nvim-terminal')
 time([[Config for nvim-terminal]], false)
--- Config for: nvim-neoclip.lua
-time([[Config for nvim-neoclip.lua]], true)
-require('config.nvim-neoclip')
-time([[Config for nvim-neoclip.lua]], false)
 -- Config for: nvim-tree.lua
 time([[Config for nvim-tree.lua]], true)
 require('config.nvim-tree')
 time([[Config for nvim-tree.lua]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+require('config.nvim-autopairs')
+time([[Config for nvim-autopairs]], false)
+-- Config for: impatient.nvim
+time([[Config for impatient.nvim]], true)
+require('impatient')
+time([[Config for impatient.nvim]], false)
+-- Config for: nvim-neoclip.lua
+time([[Config for nvim-neoclip.lua]], true)
+require('config.nvim-neoclip')
+time([[Config for nvim-neoclip.lua]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('config.telescope')
+time([[Config for telescope.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd telescope-symbols.nvim ]]
@@ -446,8 +456,8 @@ time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'ultisnips'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au BufEnter * ++once lua require("packer.load")({'lspkind-nvim', 'nvim-treesitter'}, { event = "BufEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'indent-blankline.nvim', 'lualine.nvim', 'which-key.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'indent-blankline.nvim', 'lualine.nvim', 'which-key.nvim', 'lspkind-nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufEnter * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
