@@ -145,3 +145,19 @@ function! s:wilder_init() abort
     echohl Error |echomsg "Wilder.nvim missing: run :PackerSync to fix."|echohl None
   endtry
 endfunction
+
+""""""""""""""""""""""""""""""firenvim settings""""""""""""""""""""""""""""""
+let g:firenvim_config = {
+  \ 'globalSettings': {
+    \ 'alt': 'all',
+  \ },
+  \ 'localSettings': {
+    \ '.*': {
+      \ 'cmdline': 'neovim',
+      \ 'content': 'text',
+      \ 'priority': 0,
+      \ 'selector': 'textarea',
+      \ 'takeover': 'never',
+    \ },
+  \ }
+\ }
