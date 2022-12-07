@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " Plugin specification and lua stuff
-lua require('lua-init')
+lua require('plugins')
 
 """""""""""""""""""""""""UltiSnips settings"""""""""""""""""""
 " Trigger configuration. Do not use <tab> if you use YouCompleteMe

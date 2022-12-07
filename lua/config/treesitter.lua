@@ -1,4 +1,4 @@
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter.configs").setup {
   ensure_installed = "all",
   ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
@@ -17,4 +17,4 @@ require("nvim-treesitter.configs").setup({
   -- colors = {}, -- table of hex strings
   -- termcolors = {} -- table of colour name strings
   },
-})
+}
